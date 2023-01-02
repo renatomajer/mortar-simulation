@@ -4,29 +4,37 @@ using UnityEngine;
 
 public class PlayerCam : MonoBehaviour
 {
-    public float sensX;
-    public float sensY;
+    [SerializeField]
+    private float _mouseSensitivity = 2.5f;
 
-    public Transform orientation;
-    float xRotation;
-    float yRotation;
+    private float _rotationY;
+    private float _rotationX;
 
-    private void Start() {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-    }
+    private Vector3 _currentRotation;
+    private Vector3 _smoothVelocity = Vector3.zero;
 
-    private void Update() {
-        // get mouse input
-        float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * sensX;
-        float mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * sensY;
+    [SerializeField]
+    private float _smoothTime = 0.2f;
 
-        yRotation += mouseX;
-        xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+    [SerializeField]
+    private Vector2 _rotationXMinMax = new Vector2(-40, 40);
 
-        // rotate cam and orientation
-        transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
-        orientation.rotation = Quaternion.Euler(0, yRotation, 0);
+    void Update()
+    {
+        float mouseX = Input.GetAxis("Mouse X") * _mouseSensitivity;
+        float mouseY = Input.GetAxis("Mouse Y") * _mouseSensitivity;
+
+        _rotationY += mouseX;
+        _rotationX += mouseY;
+
+        // Apply clamping for x rotation 
+        _rotationX = Mathf.Clamp(_rotationX, _rotationXMinMax.x, _rotationXMinMax.y);
+
+        Vector3 nextRotation = new Vector3(_rotationX, _rotationY);
+
+        // Apply damping between rotation changes
+        _currentRotation = Vector3.SmoothDamp(_currentRotation, nextRotation, ref _smoothVelocity, _smoothTime);
+        transform.localEulerAngles = _currentRotation;
+
     }
 }
