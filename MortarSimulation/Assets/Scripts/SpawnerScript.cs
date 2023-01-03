@@ -5,17 +5,17 @@ using UnityEngine;
 public class SpawnerScript : MonoBehaviour
 {
 
-    public Vector3 spawnPosition;
-    public Vector3 rotateTo = new Vector3(0, 0, -10);
+    private Vector3 spawnPosition;
+    private Vector3 rotateTo = new Vector3(0, 0, -10);
     public GameObject tankPrefab;
-    public float spawnRate = 10f;
+    private float spawnRate;
 
     [SerializeField]
     public float spawnDistance = 120f;
     // Start is called before the first frame update
     void Start()
     {
-
+        spawnRate = -10f;
     }
 
     // Update is called once per frame
@@ -24,7 +24,7 @@ public class SpawnerScript : MonoBehaviour
 
         spawnRate -= Time.deltaTime;
 
-        if(Input.GetKey("space") && spawnRate < 0) {
+        if(Input.GetKey("space") && spawnRate < 0f) {
             float random = Random.Range(-1f, 1f);
 
             if(random > 0) {

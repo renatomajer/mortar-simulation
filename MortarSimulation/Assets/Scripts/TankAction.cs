@@ -8,9 +8,11 @@ public class TankAction : MonoBehaviour
     private Rigidbody tankBody;
     public GameObject explosionPrefab;
     public GameObject secondExplosionPrefab;
-    public Vector3 targetPosition = new Vector3(0, 0, -100);
     private Quaternion lookRotation;
-    public bool didTurn = false;
+    private bool didTurn = false;
+
+    [SerializeField]
+    private Vector3 targetPosition = new Vector3(0, 0, -100);
 
     [SerializeField]
     public float moveAfterRotation = 20f;

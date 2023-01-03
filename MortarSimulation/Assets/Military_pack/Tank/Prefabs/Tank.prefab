@@ -1779,8 +1779,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a14e02fd6f75f1042a156b7ec6f60f9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosionPrefab: {fileID: 0}
-  secondExplosionPrefab: {fileID: 0}
+  explosionPrefab: {fileID: 1165615554678320, guid: ae70d10507a661c4e853ca0940510a3f, type: 3}
+  secondExplosionPrefab: {fileID: 1165615554678320, guid: d0ca21082a3e1914c86886eda3867e13, type: 3}
   targetPosition: {x: 0, y: 0, z: -100}
   didTurn: 0
   moveAfterRotation: 20

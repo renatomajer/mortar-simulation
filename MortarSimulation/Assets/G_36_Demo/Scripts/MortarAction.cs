@@ -8,7 +8,7 @@ public class MortarAction : MonoBehaviour {
     public AudioClip fireSound;
     public Rigidbody mortarPrefab;
     public Transform mortarBarrelEnd;
-    public float shellVelocity = 25000f;
+    private float shellVelocity = 25000f;
 
     // Use this for initialization
     void Start()
