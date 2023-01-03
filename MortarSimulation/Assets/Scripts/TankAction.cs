@@ -34,8 +34,6 @@ public class TankAction : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("Range: " + range + " Range after rotation" + moveAfterRotation);
-
         // if range is > 0 and tank didn't turn yet, move tank forward and substract passed distance
         if(range > 0f) {
             tankBody.velocity = transform.forward * speed;
