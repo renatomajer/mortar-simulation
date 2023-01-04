@@ -15,7 +15,7 @@ public class Explosion_Mortar_80mm : MonoBehaviour {
     private void Awake()
     {
         myAudio = GetComponent<AudioSource>();
-        Destroy(gameObject, 8f);
+        Destroy(gameObject, 5f);
     }
 
     // Use this for initialization
