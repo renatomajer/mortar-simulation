@@ -7,6 +7,8 @@ TagManager:
   - Terrain
   - Tank
   - Shell
+  - Enviroment
+  - BarrelEnd
   layers:
   - Default
   - TransparentFX
