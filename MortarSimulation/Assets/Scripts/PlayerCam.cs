@@ -19,6 +19,15 @@ public class PlayerCam : MonoBehaviour
     [SerializeField]
     private Vector2 _rotationXMinMax = new Vector2(-40, 40);
 
+    // camera zoom
+    [SerializeField]
+    private float ScrollSpeed = 10;
+    private Camera ZoomCamera;
+
+    private void Start() {
+        ZoomCamera = Camera.main;
+    }
+
     void Update()
     {
         float mouseX = Input.GetAxis("Mouse X") * _mouseSensitivity;
@@ -35,6 +44,12 @@ public class PlayerCam : MonoBehaviour
         // Apply damping between rotation changes
         _currentRotation = Vector3.SmoothDamp(_currentRotation, nextRotation, ref _smoothVelocity, _smoothTime);
         transform.localEulerAngles = _currentRotation;
+
+        float newZoomValue = ZoomCamera.fieldOfView - Input.GetAxis("Mouse ScrollWheel") * ScrollSpeed;
+
+        if(newZoomValue < 90f && newZoomValue > 0f) {
+            ZoomCamera.fieldOfView = newZoomValue;
+        }
 
     }
 }
