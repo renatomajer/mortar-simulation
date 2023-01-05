@@ -18,7 +18,7 @@ public class TankShooting : MonoBehaviour {
     public float velocitySlop = 1f;
 
     [SerializeField]
-    private cooldownRate = 5f;
+    private float cooldownRate = 5f;
 
     [SerializeField]
     private bool autoShooting = false;
