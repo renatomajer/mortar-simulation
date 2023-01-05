@@ -3,39 +3,44 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class TankShooting : MonoBehaviour {
+
     private AudioSource myTankAudio;
     public ParticleSystem[] gunFx;
     public AudioClip fireSound;
     public Rigidbody tankRoundPrefab;
     public Transform tankBarrelEnd;
+    private float cooldown = 5f;
 
-    public float azmuthSlop = 10f;
+    private float azmuthSlop = 5f;
     private Quaternion originalBarrelEnd;
-    public float velocitySlop = 1f;
+    private float velocitySlop = 1f;
 
     // shell speed
-    private float shellVelocity = 22000f;
+    private float shellVelocity = 100000f;
 
-    // Use this for initialization
+    // get audio component at start
     void Start()
     {
         myTankAudio = GetComponent<AudioSource>();
-        FireTank();
+        originalBarrelEnd = tankBarrelEnd.rotation;
     }
 
-   
-
+    void Update() {
+        cooldown -= Time.deltaTime;
+        if(Input.GetKeyDown(KeyCode.S) && cooldown > 0f) {
+            FireTank();
+            cooldown = 5f;
+        }
+    }
 
     public void FireTank()
     {
-       
         myTankAudio.clip = fireSound;
         myTankAudio.loop = false;
         myTankAudio.Play();
         foreach (ParticleSystem fire in gunFx)
         {
             fire.Play();
-
         }
 
         ShootTankRound();
@@ -43,7 +48,6 @@ public class TankShooting : MonoBehaviour {
 
     public void ShootTankRound()
     {
-
         shellVelocity = shellVelocity + (Random.Range(-velocitySlop, velocitySlop));
         float randomSlop = Random.Range(-azmuthSlop, azmuthSlop);
         Quaternion slop = Quaternion.Euler(randomSlop, Random.Range(-azmuthSlop, azmuthSlop), 0);

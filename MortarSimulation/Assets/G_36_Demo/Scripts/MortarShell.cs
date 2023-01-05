@@ -14,8 +14,10 @@ public class MortarShell : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        this.transform.forward =
-        Vector3.Slerp(this.transform.forward, mortarRigidbody.velocity.normalized, Time.deltaTime);
+        this.transform.forward = Vector3.Slerp(this.transform.forward, mortarRigidbody.velocity.normalized, Time.deltaTime);
+        if(transform.position.y <= 0f) {
+            Destroy(gameObject);
+        }
     }
 
     private void OnCollisionEnter(Collision collision)

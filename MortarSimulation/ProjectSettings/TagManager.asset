@@ -9,6 +9,7 @@ TagManager:
   - Shell
   - Enviroment
   - BarrelEnd
+  - TankBarrelEnd
   layers:
   - Default
   - TransparentFX

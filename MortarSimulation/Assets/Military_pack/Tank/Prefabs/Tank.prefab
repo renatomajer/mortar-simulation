@@ -3465,8 +3465,6 @@ MonoBehaviour:
   fireSound: {fileID: 8300000, guid: eecf9bf7f0a3ad748b64721410cb13f6, type: 3}
   tankRoundPrefab: {fileID: 54725639411849298, guid: 0cef32a091899a245b26f162c723f6cd, type: 3}
   tankBarrelEnd: {fileID: 392346582007205434}
-  azmuthSlop: 10
-  velocitySlop: 1
 --- !u!82 &2511660005702028054
 AudioSource:
   m_ObjectHideFlags: 0
@@ -5018,7 +5016,7 @@ GameObject:
   - component: {fileID: 392346582007205434}
   m_Layer: 0
   m_Name: TankBarrelEnd
-  m_TagString: Untagged
+  m_TagString: TankBarrelEnd
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
