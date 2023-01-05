@@ -18,9 +18,6 @@ public class MortarAction : MonoBehaviour {
         myAudio = GetComponent<AudioSource>();
     }
 
-   
-
-
     public void Fire()
     {
        
@@ -42,7 +39,4 @@ public class MortarAction : MonoBehaviour {
         Rigidbody emptyShellInstance = Instantiate(mortarPrefab, mortarBarrelEnd.position, (mortarBarrelEnd.rotation)) as Rigidbody;
         emptyShellInstance.AddForce(mortarBarrelEnd.forward * shellVelocity);
     }
-
-
-   
 }

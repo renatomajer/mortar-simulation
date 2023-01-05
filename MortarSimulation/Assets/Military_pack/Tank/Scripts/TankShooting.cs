@@ -11,11 +11,17 @@ public class TankShooting : MonoBehaviour {
     public Transform tankBarrelEnd;
     public bool canShoot = false;
 
-    public float cooldown = 5f;
+    public float cooldown;
 
-    public float azmuthSlop = 5f;
+    public float azmuthSlop = 3f;
     public Quaternion originalBarrelEnd;
     public float velocitySlop = 1f;
+
+    [SerializeField]
+    private cooldownRate = 5f;
+
+    [SerializeField]
+    private bool autoShooting = false;
 
     // shell speed
     public float shellVelocity = 100000f;
@@ -24,13 +30,19 @@ public class TankShooting : MonoBehaviour {
     void Start()
     {
         myTankAudio = GetComponent<AudioSource>();
+        cooldown = cooldownRate;
     }
 
     void Update() {
         cooldown -= Time.deltaTime;
-        if(Input.GetKeyDown(KeyCode.S) && cooldown < 0f && canShoot) {
+        
+        if(Input.GetKeyDown(KeyCode.A)) {
+            autoShooting = true;
+        } else if(Input.GetKeyDown(KeyCode.M)) {
+            autoShooting = false;
+        } else if((Input.GetKeyDown(KeyCode.T) || autoShooting) && cooldown < 0f && canShoot) {
             FireTank();
-            cooldown = 5f;
+            cooldown = cooldownRate;
         }
     }
 
