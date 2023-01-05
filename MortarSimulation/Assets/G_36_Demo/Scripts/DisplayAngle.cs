@@ -9,7 +9,7 @@ public class DisplayAngle : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI textMesh;
 
-    private GameObject mortarBarrel;
+    public GameObject mortarBarrel;
     
     void Update()
     {

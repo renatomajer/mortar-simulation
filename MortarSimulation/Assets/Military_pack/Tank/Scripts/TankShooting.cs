@@ -9,26 +9,26 @@ public class TankShooting : MonoBehaviour {
     public AudioClip fireSound;
     public Rigidbody tankRoundPrefab;
     public Transform tankBarrelEnd;
-    
-    private float cooldown = 5f;
+    public bool canShoot = false;
 
-    private float azmuthSlop = 5f;
-    private Quaternion originalBarrelEnd;
-    private float velocitySlop = 1f;
+    public float cooldown = 5f;
+
+    public float azmuthSlop = 5f;
+    public Quaternion originalBarrelEnd;
+    public float velocitySlop = 1f;
 
     // shell speed
-    private float shellVelocity = 100000f;
+    public float shellVelocity = 100000f;
 
     // get audio component at start
     void Start()
     {
         myTankAudio = GetComponent<AudioSource>();
-        originalBarrelEnd = tankBarrelEnd.rotation;
     }
 
     void Update() {
         cooldown -= Time.deltaTime;
-        if(Input.GetKeyDown(KeyCode.S) && cooldown < 0f) {
+        if(Input.GetKeyDown(KeyCode.S) && cooldown < 0f && canShoot) {
             FireTank();
             cooldown = 5f;
         }

@@ -1013,11 +1013,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28e8cdd34e829734894645cc8de3ba19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myAudio: {fileID: 0}
   gunFx:
-  - {fileID: 198223222950566356}
+  - {fileID: 198207356188552008, guid: 8b3701d1e2ef5ac45877d292a7022636, type: 3}
   fireSound: {fileID: 8300000, guid: b064a7caf298c364d9caf3026a41dbde, type: 3}
   mortarPrefab: {fileID: 54725639411849298, guid: 0cef32a091899a245b26f162c723f6cd, type: 3}
   mortarBarrelEnd: {fileID: 4267006573294490}
+  shellVelocity: 22000
 --- !u!1 &1162795285561026
 GameObject:
   m_ObjectHideFlags: 0

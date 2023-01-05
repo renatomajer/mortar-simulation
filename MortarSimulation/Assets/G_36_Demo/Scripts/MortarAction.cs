@@ -10,7 +10,7 @@ public class MortarAction : MonoBehaviour {
     public Transform mortarBarrelEnd;
 
     // shell speed
-    private float shellVelocity = 22000f;
+    public float shellVelocity = 22000f;
 
     // Use this for initialization
     void Start()

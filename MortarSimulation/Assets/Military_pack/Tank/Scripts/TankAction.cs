@@ -5,11 +5,14 @@ using UnityEngine;
 public class TankAction : MonoBehaviour
 {
 
-    private Rigidbody tankBody;
+    public Rigidbody tankBody;
     public GameObject explosionPrefab;
     public GameObject secondExplosionPrefab;
-    private Quaternion lookRotation;
-    private bool didTurn = false;
+
+    public Quaternion lookRotation;
+    public bool didTurn = false;
+
+    private TankShooting tankShootingScript;
 
     [SerializeField]
     private Vector3 targetPosition = new Vector3(0, 0, -100);
@@ -31,6 +34,7 @@ public class TankAction : MonoBehaviour
         tankBody = GetComponent<Rigidbody>();
         range += Random.Range(-30f, 0f);
         moveAfterRotation += Random.Range(-5f, 5f);
+        tankShootingScript = this.GetComponentInChildren<TankShooting>();
 	}
 
     // Update is called once per frame
@@ -44,9 +48,8 @@ public class TankAction : MonoBehaviour
         }
 
         // if range is < 0 and tank did turn, turn the tank towards the crew and wait until they allign
-        if(range < 0f && !didTurn) {
+        if(range <= 0f && !didTurn) {
             turnTank();
-            Debug.Log(Vector3.Angle(transform.forward, (targetPosition - transform.position)));
 
             // if they allign, tank did turn and reduce speed
             if(Vector3.Angle(transform.forward, (targetPosition - transform.position)) <= 0.01f) {
@@ -61,6 +64,12 @@ public class TankAction : MonoBehaviour
         if(didTurn && moveAfterRotation > 0f) {
             tankBody.velocity = transform.forward * speed;
             moveAfterRotation -= tankBody.velocity.magnitude * Time.deltaTime;
+        }
+
+        // allow shooting
+        if(didTurn && moveAfterRotation <= 0f && range <= 0f) {
+            tankShootingScript.originalBarrelEnd = tankShootingScript.tankBarrelEnd.rotation;
+            tankShootingScript.canShoot = true;
         }
     }
 
