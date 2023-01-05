@@ -27,7 +27,7 @@ public class TankShooting : MonoBehaviour {
 
     void Update() {
         cooldown -= Time.deltaTime;
-        if(Input.GetKeyDown(KeyCode.S) && cooldown > 0f) {
+        if(Input.GetKeyDown(KeyCode.S) && cooldown < 0f) {
             FireTank();
             cooldown = 5f;
         }
