@@ -2,7 +2,8 @@
 # Unity folders and files
 ###
 [Aa]ssets/AssetStoreTools*
-Logs/
+MortarSimulation/Logs/
+MortarSimulation/UserSettings/
 [Bb]uild/
 [Ll]ibrary/
 [Ll]ocal[Cc]ache/
