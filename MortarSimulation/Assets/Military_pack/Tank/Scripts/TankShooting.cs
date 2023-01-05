@@ -9,6 +9,7 @@ public class TankShooting : MonoBehaviour {
     public AudioClip fireSound;
     public Rigidbody tankRoundPrefab;
     public Transform tankBarrelEnd;
+    
     private float cooldown = 5f;
 
     private float azmuthSlop = 5f;
