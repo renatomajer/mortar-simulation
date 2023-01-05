@@ -7,7 +7,6 @@ public class TankAction : MonoBehaviour
 
     public Rigidbody tankBody;
     public GameObject explosionPrefab;
-    public GameObject secondExplosionPrefab;
 
     public Quaternion lookRotation;
     public bool didTurn = false;
@@ -81,14 +80,13 @@ public class TankAction : MonoBehaviour
     }
 
     void tankExplosion() {
-        Instantiate(secondExplosionPrefab, this.transform.position, Quaternion.identity);
+        Instantiate(explosionPrefab, this.transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 
     void OnCollisionEnter(Collision collision) {
         if(collision.gameObject.CompareTag("Shell")) {
             Debug.Log("Hit");
-            Instantiate(explosionPrefab, this.transform.position, Quaternion.identity);
             Invoke("tankExplosion", 1.0f);
         } else if(collision.gameObject.CompareTag("Enviroment")) {
             Destroy(collision.gameObject);
