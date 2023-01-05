@@ -42,10 +42,10 @@ public class SpawnerScript : MonoBehaviour
             float random = Random.Range(-1f, 1f);
 
             // make sure tanks are not already instantiated on this side
-            if(random > 0 && right == null) {
+            if(random > 0f && right == null) {
                 tankSpawnPosition = new Vector3(spawnDistance, 0, -10);
                 right =  Instantiate(tankPrefab, tankSpawnPosition, Quaternion.Euler(0, -90, 0));
-            } else if(random < 0 && left == null) {
+            } else if(random <= 0f && left == null) {
                 tankSpawnPosition = new Vector3(-spawnDistance, 0, -10);
                 left = Instantiate(tankPrefab, tankSpawnPosition, Quaternion.Euler(0, 90, 0));
             }
