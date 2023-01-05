@@ -12206,6 +12206,7 @@ MonoBehaviour:
   _mouseSensitivity: 2.5
   _smoothTime: 0.2
   _rotationXMinMax: {x: -40, y: 40}
+  ScrollSpeed: 10
 --- !u!1 &968490753
 GameObject:
   m_ObjectHideFlags: 0
@@ -18094,7 +18095,7 @@ MonoBehaviour:
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
-  m_ScreenMatchMode: 0
+  m_ScreenMatchMode: 1
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
