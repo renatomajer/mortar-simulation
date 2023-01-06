@@ -13,28 +13,22 @@ public class MortarAction : MonoBehaviour {
     public float shellVelocity = 22000f;
 
     // Use this for initialization
-    void Start()
-    {
+    void Start() {
         myAudio = GetComponent<AudioSource>();
     }
 
-    public void Fire()
-    {
-       
+    public void Fire() {
         myAudio.clip = fireSound;
         myAudio.loop = false;
         myAudio.Play();
-        foreach (ParticleSystem fire in gunFx)
-        {
+        foreach (ParticleSystem fire in gunFx) {
             fire.Play();
-
         }
 
         ShootMortarRound();
     }
 
-    public void ShootMortarRound()
-    {
+    public void ShootMortarRound() {
         mortarBarrelEnd.rotation = mortarBarrelEnd.rotation;
         Rigidbody emptyShellInstance = Instantiate(mortarPrefab, mortarBarrelEnd.position, (mortarBarrelEnd.rotation)) as Rigidbody;
         emptyShellInstance.AddForce(mortarBarrelEnd.forward * shellVelocity);

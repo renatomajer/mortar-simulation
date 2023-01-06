@@ -9,13 +9,13 @@ public class TankShooting : MonoBehaviour {
     public AudioClip fireSound;
     public Rigidbody tankRoundPrefab;
     public Transform tankBarrelEnd;
+
     public bool canShoot = false;
 
-    public float cooldown;
+    private float cooldown;
+    public float azmuthSlop = 0.025f;
 
-    public float azmuthSlop = 3f;
     public Quaternion originalBarrelEnd;
-    public float velocitySlop = 1f;
 
     [SerializeField]
     private float cooldownRate = 5f;
@@ -24,13 +24,12 @@ public class TankShooting : MonoBehaviour {
     private bool autoShooting = false;
 
     // shell speed
-    public float shellVelocity = 100000f;
+    private float shellVelocity = 100000f;
 
     // get audio component at start
-    void Start()
-    {
+    void Start() {
         myTankAudio = GetComponent<AudioSource>();
-        cooldown = cooldownRate;
+        cooldown = cooldownRate + Random.Range(-2f, 2f);
     }
 
     void Update() {
@@ -42,12 +41,11 @@ public class TankShooting : MonoBehaviour {
             autoShooting = false;
         } else if((Input.GetKeyDown(KeyCode.T) || autoShooting) && cooldown < 0f && canShoot) {
             FireTank();
-            cooldown = cooldownRate;
+            cooldown = cooldownRate + Random.Range(-2f, 2f);
         }
     }
 
-    public void FireTank()
-    {
+    public void FireTank() {
         myTankAudio.clip = fireSound;
         myTankAudio.loop = false;
         myTankAudio.Play();
@@ -59,13 +57,10 @@ public class TankShooting : MonoBehaviour {
         ShootTankRound();
     }
 
-    public void ShootTankRound()
-    {
-        shellVelocity = shellVelocity + (Random.Range(-velocitySlop, velocitySlop));
-        float randomSlop = Random.Range(-azmuthSlop, azmuthSlop);
-        Quaternion slop = Quaternion.Euler(randomSlop, Random.Range(-azmuthSlop, azmuthSlop), 0);
-        tankBarrelEnd.rotation = tankBarrelEnd.rotation * slop;
+    public void ShootTankRound() {
+        Quaternion slop = Quaternion.Euler(Random.Range(-azmuthSlop, azmuthSlop), Random.Range(-azmuthSlop, azmuthSlop), 0);
 
+        tankBarrelEnd.rotation = tankBarrelEnd.rotation * slop;
         Rigidbody emptyShellInstance = Instantiate(tankRoundPrefab, tankBarrelEnd.position, (tankBarrelEnd.rotation)) as Rigidbody;
         emptyShellInstance.AddForce(tankBarrelEnd.forward * shellVelocity);
 

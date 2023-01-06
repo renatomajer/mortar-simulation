@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerCam : MonoBehaviour
-{
+public class PlayerCam : MonoBehaviour {
     [SerializeField]
     private float _mouseSensitivity = 2.5f;
 
@@ -28,8 +27,7 @@ public class PlayerCam : MonoBehaviour
         ZoomCamera = Camera.main;
     }
 
-    void Update()
-    {
+    void Update() {
         float mouseX = Input.GetAxis("Mouse X") * _mouseSensitivity;
         float mouseY = Input.GetAxis("Mouse Y") * -1 * _mouseSensitivity;
 

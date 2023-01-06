@@ -2,56 +2,60 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnerScript : MonoBehaviour
-{
+public class SpawnerScript : MonoBehaviour {
 
     private Vector3 tankSpawnPosition;
-    private Vector3 spawnPosition = new Vector3(0, 0, -100);
     private Vector3 rotateTo = new Vector3(0, 0, -10);
     public GameObject tankPrefab;
     public GameObject mortarCrewPrefab;
-    private float spawnRate;
     private GameObject left;
     private GameObject right;
     private GameObject mortarCrew;
 
-    // spawn rate
+    // crew spawn position
+    private Vector3 spawnPosition = new Vector3(0, 0, -100);
+
+    // spawn cooldown
     private float cooldownTime = 10f;
+    private float spawnRate;
+
+    // spawn method
+    private bool spawnContinuously = false;
 
     [SerializeField]
     public float spawnDistance = 120f;
-    // Start is called before the first frame update
-    void Start()
-    {
+    
+    void Start() {
         // for initial spawn, 10s cooldown is applied afterwards
         spawnRate = -cooldownTime;
-
-        // spawn mortar crew on scene load
         mortarCrew = Instantiate(mortarCrewPrefab, spawnPosition, Quaternion.identity);
-        
     }
 
-    void Update()
-    {
-
-        // calculate passed time
+    void Update() {
         spawnRate -= Time.deltaTime;
 
-        // if space is pressed and cooldown time expired, attempt to spawn new tank object
-        if(Input.GetKey("space") && spawnRate < 0f) {
-            float random = Random.Range(-1f, 1f);
+        if(Input.GetKeyDown(KeyCode.C)) {
+            spawnContinuously = true;
+        } else if(Input.GetKeyDown(KeyCode.S)) {
+            spawnContinuously = false;
+        } else if((Input.GetKey("space") || spawnContinuously) && spawnRate < 0f) {
+            float random = Random.Range(-1f, 1f); // attempt to spawn tanks randomly
 
-            // make sure tanks are not already instantiated on this side
-            if(random > 0f && right == null) {
+            if(random > 0f && right == null) { // spawn on right side
                 tankSpawnPosition = new Vector3(spawnDistance, 0, -10);
                 right =  Instantiate(tankPrefab, tankSpawnPosition, Quaternion.Euler(0, -90, 0));
-            } else if(random <= 0f && left == null) {
+            } else if(random <= 0f && left == null) { // spawn on left side
+                tankSpawnPosition = new Vector3(-spawnDistance, 0, -10);
+                left = Instantiate(tankPrefab, tankSpawnPosition, Quaternion.Euler(0, 90, 0));
+            } else if(right == null) { // if random was left and tank on left exists, spawn right
+                tankSpawnPosition = new Vector3(spawnDistance, 0, -10);
+                right =  Instantiate(tankPrefab, tankSpawnPosition, Quaternion.Euler(0, -90, 0));
+            } else if(left == null) { // if random was right and tank on right exists, spawn left
                 tankSpawnPosition = new Vector3(-spawnDistance, 0, -10);
                 left = Instantiate(tankPrefab, tankSpawnPosition, Quaternion.Euler(0, 90, 0));
             }
 
-            // set cooldown time back;
-            spawnRate = cooldownTime;
+            spawnRate = cooldownTime; // reset cooldown time
 
         } else if(Input.GetKeyDown(KeyCode.R)) { // reset scene
             Destroy(left);

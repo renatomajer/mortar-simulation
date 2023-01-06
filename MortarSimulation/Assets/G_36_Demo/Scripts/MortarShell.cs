@@ -7,30 +7,26 @@ public class MortarShell : MonoBehaviour {
     private Rigidbody mortarRigidbody;
     public GameObject explosionPrefab;
     public GameObject explosionNoCrater;
-    // Use this for initialization
+    
 	void Start () {
         mortarRigidbody = GetComponent<Rigidbody>();
 	}
 	
-	// Update is called once per frame
 	void Update () {
         this.transform.forward = Vector3.Slerp(this.transform.forward, mortarRigidbody.velocity.normalized, Time.deltaTime);
-        if(transform.position.y <= 0f) {
+        if(transform.position.y < 0f) {
             Destroy(gameObject);
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if(collision.gameObject.CompareTag("Terrain"))
-        {
+    private void OnCollisionEnter(Collision collision) {
+        if(collision.gameObject.CompareTag("Terrain")) {
             Instantiate(explosionPrefab, this.transform.position, Quaternion.identity);
         }
-        else
-        {
+        else {
             Instantiate(explosionNoCrater, this.transform.position, Quaternion.identity);
         }
-        Destroy(gameObject);
 
+        Destroy(gameObject);
     }
 }
