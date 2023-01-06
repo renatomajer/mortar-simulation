@@ -2,7 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ExitController : MonoBehaviour {
+public class SceneControllerScript : MonoBehaviour {
+
+    // hide cursor
+    void Start() {
+        Cursor.visible = false;
+    }
+
     // exit application
     void Update() {
         if(Input.GetKeyDown(KeyCode.Q)) {
