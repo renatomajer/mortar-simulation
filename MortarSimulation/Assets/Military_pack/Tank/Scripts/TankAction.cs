@@ -13,26 +13,17 @@ public class TankAction : MonoBehaviour {
     // access script variable
     private TankShooting tankShootingScript;
 
-    [SerializeField]
     private Vector3 targetPosition = new Vector3(0, 0, -100);
-
-    [SerializeField]
-    public float moveAfterRotation = 20f;
-
-    [SerializeField]
+    private float moveAfterRotation = 20f;
     private float moveBeforeRotation = 120.0f;
-
-    [SerializeField]
     private float rotationSpeed = 3.0f;
-
-    [SerializeField]
-    private float speed = 8.0f;
+    private float speed = 3.0f;
 
     // Use this for initialization
 	void Start () {
         tankBody = GetComponent<Rigidbody>();
         moveBeforeRotation += Random.Range(-30f, 0f);
-        moveAfterRotation += Random.Range(-10f, 10f);
+        moveAfterRotation += Random.Range(0f, 30f);
         tankShootingScript = this.GetComponentInChildren<TankShooting>();
 	}
 
