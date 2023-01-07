@@ -22,8 +22,9 @@ public class SpawnerScript : MonoBehaviour {
     // spawn method
     private bool spawnContinuously = false;
 
-    [SerializeField]
-    public float spawnDistance = 120f;
+    private float spawnDistance = 120f;
+
+    public bool autoShooting = false;
     
     void Start() {
         // for initial spawn, 10s cooldown is applied afterwards
@@ -38,6 +39,10 @@ public class SpawnerScript : MonoBehaviour {
             spawnContinuously = true;
         } else if(Input.GetKeyDown(KeyCode.S)) {
             spawnContinuously = false;
+        } else if(Input.GetKeyDown(KeyCode.A)) {
+            autoShooting = true;
+        } else if(Input.GetKeyDown(KeyCode.M)) { 
+            autoShooting = false;
         } else if((Input.GetKey("space") || spawnContinuously) && spawnRate < 0f) {
             float random = Random.Range(-1f, 1f); // attempt to spawn tanks randomly
 

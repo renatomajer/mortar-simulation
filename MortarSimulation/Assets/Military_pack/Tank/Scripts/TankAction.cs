@@ -7,17 +7,15 @@ public class TankAction : MonoBehaviour {
     public Rigidbody tankBody;
     public GameObject explosionPrefab;
 
-    private Quaternion lookRotation;
-    private bool didTurn = false;
-
     // access script variable
     private TankShooting tankShootingScript;
 
-    private Vector3 targetPosition = new Vector3(0, 0, -100);
     private float moveAfterRotation = 20f;
     private float moveBeforeRotation = 120.0f;
     private float rotationSpeed = 3.0f;
     private float speed = 3.0f;
+    private GameObject crew;
+
 
     // Use this for initialization
 	void Start () {
@@ -25,6 +23,7 @@ public class TankAction : MonoBehaviour {
         moveBeforeRotation += Random.Range(-30f, 0f);
         moveAfterRotation += Random.Range(0f, 30f);
         tankShootingScript = this.GetComponentInChildren<TankShooting>();
+        crew = GameObject.FindWithTag("Player");
 	}
 
     // Update is called once per frame
@@ -35,38 +34,35 @@ public class TankAction : MonoBehaviour {
             return;
         }
 
-        if(moveBeforeRotation <= 0f && !didTurn) {
-            turnTank();
+        turnTank();
 
-            // when they allign, tank did turn and reduce speed
-            if(Vector3.Angle(transform.forward, (targetPosition - transform.position)) <= 0.01f) {
-                didTurn = true;
-                speed *= 0.5f;
-            } else {
-                didTurn = false;
-            }
-
+        if(moveAfterRotation > 0f) {
+            tankBody.velocity = transform.forward * speed;
+            moveAfterRotation -= tankBody.velocity.magnitude * Time.deltaTime;
             return;
         }
 
-        // close the distance, after tank turned
-        if(didTurn && moveAfterRotation > 0f) {
-            tankBody.velocity = transform.forward * speed;
-            moveAfterRotation -= tankBody.velocity.magnitude * Time.deltaTime;
-        }
-
         // allow shooting
-        if(didTurn && moveAfterRotation <= 0f && moveBeforeRotation <= 0f) {
-            tankShootingScript.originalBarrelEnd = tankShootingScript.tankBarrelEnd.rotation;
-            tankShootingScript.canShoot = true;
+        if(moveAfterRotation <= 0f) {
+            GameObject crew = GameObject.FindWithTag("Player");
+            if(crew == null) {
+                tankShootingScript.canShoot = false;
+            } else {
+                tankShootingScript.tankBarrelEnd.transform.LookAt(crew.transform);
+                tankShootingScript.canShoot = true;
+            }
         }
     }
 
     void turnTank() {
-        Vector3 lookDirection = (targetPosition - transform.position).normalized;
+        if(crew == null) {
+            return;
+        } else {
+            Vector3 lookDirection = (crew.transform.position - transform.position).normalized;
 
-        lookRotation = Quaternion.LookRotation(lookDirection);
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotationSpeed);
+            Quaternion lookRotation = Quaternion.LookRotation(lookDirection);
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotationSpeed);
+        }
     }
 
     void tankExplosion() {

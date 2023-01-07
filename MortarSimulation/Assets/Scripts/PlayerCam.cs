@@ -3,12 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerCam : MonoBehaviour {
-    [SerializeField]
-    private float _mouseSensitivity = 2.5f;
-
+    
     private float _rotationY;
     private float _rotationX;
-
     private Vector3 _currentRotation;
     private Vector3 _smoothVelocity = Vector3.zero;
 
@@ -18,6 +15,9 @@ public class PlayerCam : MonoBehaviour {
     [SerializeField]
     private Vector2 _rotationXMinMax = new Vector2(-40, 40);
 
+    [SerializeField]
+    private float _mouseSensitivity = 2.5f;
+    
     // camera zoom
     [SerializeField]
     private float ScrollSpeed = 10;
@@ -48,6 +48,5 @@ public class PlayerCam : MonoBehaviour {
         if(newZoomValue < 90f && newZoomValue > 0f) {
             ZoomCamera.fieldOfView = newZoomValue;
         }
-
     }
 }

@@ -2,10 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RotateCrew : MonoBehaviour
-{
+public class RotateCrew : MonoBehaviour {
 
-    [SerializeField]
     private float sensitivity = 0.1f;
 
     // rotate mortar crew using arrow keys

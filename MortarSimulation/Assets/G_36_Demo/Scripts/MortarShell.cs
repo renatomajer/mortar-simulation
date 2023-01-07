@@ -14,19 +14,13 @@ public class MortarShell : MonoBehaviour {
 	
 	void Update () {
         this.transform.forward = Vector3.Slerp(this.transform.forward, mortarRigidbody.velocity.normalized, Time.deltaTime);
-        if(transform.position.y < 0f) {
+        if(transform.position.y < -1f) {
             Destroy(gameObject);
         }
     }
 
     private void OnCollisionEnter(Collision collision) {
-        if(collision.gameObject.CompareTag("Terrain")) {
-            Instantiate(explosionPrefab, this.transform.position, Quaternion.identity);
-        }
-        else {
-            Instantiate(explosionNoCrater, this.transform.position, Quaternion.identity);
-        }
-
+        Instantiate(explosionPrefab, this.transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 }

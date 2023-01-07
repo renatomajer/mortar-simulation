@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class AimMortar : MonoBehaviour {
     
-    [SerializeField]
     private float sensitivity = 0.1f;
 
     // rotates in range from 30 to 80 degrees
