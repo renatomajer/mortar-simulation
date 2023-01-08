@@ -5,6 +5,8 @@ The mortar is launched with mouse click.
 
 User arrow keys to aim mortar.
 
-Press space to spawn enemy tank (there is 10s cooldown between each press).
+Follow controls in upper left corner to control the simulation.
 
 Press R to reset scene.
+
+Press Q to quit scene.
