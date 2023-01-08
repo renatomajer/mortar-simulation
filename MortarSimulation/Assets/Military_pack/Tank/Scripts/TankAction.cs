@@ -6,18 +6,13 @@ public class TankAction : MonoBehaviour {
 
     public Rigidbody tankBody;
     public GameObject explosionPrefab;
-
-    // access script variable
     private TankShooting tankShootingScript;
-
     private float moveAfterRotation = 20f;
     private float moveBeforeRotation = 120.0f;
     private float rotationSpeed = 3.0f;
     private float speed = 3.0f;
     private GameObject crew;
 
-
-    // Use this for initialization
 	void Start () {
         tankBody = GetComponent<Rigidbody>();
         moveBeforeRotation += Random.Range(-30f, 0f);
@@ -26,7 +21,6 @@ public class TankAction : MonoBehaviour {
         crew = GameObject.FindWithTag("Player");
 	}
 
-    // Update is called once per frame
     void Update() {
         if(moveBeforeRotation > 0f) {
             tankBody.velocity = transform.forward * speed;
@@ -34,7 +28,7 @@ public class TankAction : MonoBehaviour {
             return;
         }
 
-        turnTank();
+        TurnTank();
 
         if(moveAfterRotation > 0f) {
             tankBody.velocity = transform.forward * speed;
@@ -42,7 +36,6 @@ public class TankAction : MonoBehaviour {
             return;
         }
 
-        // allow shooting
         if(moveAfterRotation <= 0f) {
             GameObject crew = GameObject.FindWithTag("Player");
             if(crew == null) {
@@ -54,7 +47,7 @@ public class TankAction : MonoBehaviour {
         }
     }
 
-    void turnTank() {
+    void TurnTank() {
         if(crew == null) {
             return;
         } else {
@@ -65,7 +58,7 @@ public class TankAction : MonoBehaviour {
         }
     }
 
-    void tankExplosion() {
+    void TankExplosion() {
         Instantiate(explosionPrefab, this.transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
@@ -73,7 +66,7 @@ public class TankAction : MonoBehaviour {
     void OnCollisionEnter(Collision collision) {
         if(collision.gameObject.CompareTag("Shell")) { // invoke tank explosion
             Debug.Log("Hit");
-            Invoke("tankExplosion", 1.0f);
+            Invoke("TankExplosion", 1.0f);
         } else if(collision.gameObject.CompareTag("Enviroment")) { // destroy enviroment objects
             Destroy(collision.gameObject);
         }
