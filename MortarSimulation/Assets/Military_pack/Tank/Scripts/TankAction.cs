@@ -66,6 +66,7 @@ public class TankAction : MonoBehaviour {
     void OnCollisionEnter(Collision collision) {
         if(collision.gameObject.CompareTag("Shell")) { // invoke tank explosion
             Debug.Log("Hit");
+            Destroy(collision.gameObject);
             Invoke("TankExplosion", 1.0f);
         } else if(collision.gameObject.CompareTag("Enviroment")) { // destroy enviroment objects
             Destroy(collision.gameObject);

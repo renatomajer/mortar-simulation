@@ -21,6 +21,5 @@ public class MortarShell : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision) {
         Instantiate(explosionPrefab, this.transform.position, Quaternion.identity);
-        Destroy(gameObject);
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CrewCollider : MonoBehaviour {
 
-    private bool canDie = false;
+    public bool canDie = false;
 
     void Update() {
         if(Input.GetKeyDown(KeyCode.E)) {
@@ -16,8 +16,10 @@ public class CrewCollider : MonoBehaviour {
 
     // destroy mortar crew on tank hit
     void OnCollisionEnter(Collision collision) {
+        Debug.Log(collision.gameObject.tag);
         if(collision.gameObject.CompareTag("Shell") && canDie) {
             Debug.Log("Dead");
+            Destroy(collision.gameObject);
             Destroy(gameObject);
         }    
     }
