@@ -8,13 +8,11 @@ public class MortarCrewLoader : MonoBehaviour {
     private Animator myAnim;
     public bool flipIdle = false;
 
-    private void Start()
-    {
-        myAnim = GetComponent<Animator>();   
+    private void Start() {
+        myAnim = GetComponent<Animator>();
     }
 
-    public void FIRE_Mortar()
-    {
+    public void FIRE_Mortar() {
         myMortar.Fire();
     }
 

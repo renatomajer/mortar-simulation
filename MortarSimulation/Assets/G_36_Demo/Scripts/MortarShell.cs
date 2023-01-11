@@ -21,5 +21,13 @@ public class MortarShell : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision) {
         Instantiate(explosionPrefab, this.transform.position, Quaternion.identity);
+        GameObject player = GameObject.FindWithTag("Player");
+        
+        if(player != null)
+            if(player.GetComponent<CrewCollider>().canDie)
+                if(Vector3.Distance(gameObject.transform.position, player.transform.position) <= 5f)
+                    Destroy(player);
+
+        Destroy(gameObject);
     }
 }

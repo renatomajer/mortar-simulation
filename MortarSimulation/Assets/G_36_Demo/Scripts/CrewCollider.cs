@@ -13,14 +13,4 @@ public class CrewCollider : MonoBehaviour {
             canDie = false;
         }
     }
-
-    // destroy mortar crew on tank hit
-    void OnCollisionEnter(Collision collision) {
-        Debug.Log(collision.gameObject.tag);
-        if(collision.gameObject.CompareTag("Shell") && canDie) {
-            Debug.Log("Dead");
-            Destroy(collision.gameObject);
-            Destroy(gameObject);
-        }    
-    }
 }

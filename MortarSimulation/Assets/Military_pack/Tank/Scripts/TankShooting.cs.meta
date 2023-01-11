@@ -3,7 +3,10 @@ guid: e3f99b4879554a042ab8dbb230f6c828
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - fireSound: {fileID: 8300000, guid: eecf9bf7f0a3ad748b64721410cb13f6, type: 3}
+  - tankRoundPrefab: {instanceID: 0}
+  - tankBarrelEnd: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
