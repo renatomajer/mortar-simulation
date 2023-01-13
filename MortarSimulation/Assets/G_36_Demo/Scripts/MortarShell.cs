@@ -20,7 +20,7 @@ public class MortarShell : MonoBehaviour {
     }
 
     private void OnCollisionEnter(Collision collision) {
-        Instantiate(explosionPrefab, this.transform.position, Quaternion.identity);
+        Instantiate(explosionPrefab, new Vector3(this.transform.position.x, 0.20f, this.transform.position.z), Quaternion.identity);
         GameObject player = GameObject.FindWithTag("Player");
         
         if(player != null)
